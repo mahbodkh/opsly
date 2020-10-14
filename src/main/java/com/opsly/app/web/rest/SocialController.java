@@ -25,7 +25,7 @@ public class SocialController {
     public ResponseEntity<SocialResponse> getTweetsNonBlocking() throws ExecutionException, InterruptedException {
         log.info(" REQUEST  :  --> ");
         SocialResponse socialResponse = socialService.loadSocialAggregation();
-        log.info(" RESPONSE : <-- {}", socialResponse);
+        log.info(" RESPONSE :  <-- {}", socialResponse);
         return Optional.ofNullable(socialResponse)
                 .map(result -> new ResponseEntity<>(result, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
