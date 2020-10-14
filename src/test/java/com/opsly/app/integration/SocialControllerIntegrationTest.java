@@ -1,17 +1,17 @@
 package com.opsly.app.integration;
 
-import com.opsly.app.web.dto.SocialResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.github.tomakehurst.wiremock.matching.EqualToPattern;
+import com.opsly.app.web.dto.SocialResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Spy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,20 +20,19 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 
-@SpringBootTest
 public class SocialControllerIntegrationTest extends AbstractIntegrationTest {
 
-    @Resource
+    @Autowired
     protected MockMvc mockMvc;
     WireMockConfiguration wireMockConfiguration = WireMockConfiguration
             .options()
             .port(8089)
             .usingFilesUnderClasspath("wiremock");
+
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(wireMockConfiguration);
     @Spy
