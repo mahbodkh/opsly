@@ -20,9 +20,9 @@ public class TwitterProxy {
 
 
     public CompletableFuture<String> loadTweet() {
-        log.debug("");
+        log.debug(" Third Party : Twitter REQUEST  -->  ");
         CompletableFuture<String> response = restProvider.doGet(twitterBaseUrl);
-        log.debug("");
+        log.debug(" Third Party : Twitter RESPONSE <--  {}", response);
         return response;
     }
 

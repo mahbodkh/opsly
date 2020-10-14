@@ -19,10 +19,9 @@ public class FacebookProxy {
     RestProvider restProvider;
 
     public CompletableFuture<String> loadStatus() {
-        log.debug("");
-        CompletableFuture<String> response
-                = restProvider.doGet(facebookBaseUrl);
-        log.debug("");
+        log.debug(" Third Party : Facebook REQUEST  -->  ");
+        CompletableFuture<String> response = restProvider.doGet(facebookBaseUrl);
+        log.debug(" Third Party : Facebook RESPONSE <--  {}", response);
         return response;
     }
 
