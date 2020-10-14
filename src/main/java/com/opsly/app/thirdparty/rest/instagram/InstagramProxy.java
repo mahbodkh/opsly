@@ -20,7 +20,7 @@ public class InstagramProxy {
     RestProvider restProvider;
 
     public CompletableFuture<String> loadPhotos() {
-        log.debug("  Third Party : Instagram REQUEST  -->  ");
+        log.debug(" Third Party : Instagram REQUEST  -->  ");
         CompletableFuture<String> response = restProvider.doGet(instagramBaseUrl);
         log.debug(" Third Party : Instagram RESPONSE <--  {}", response);
         return response;
