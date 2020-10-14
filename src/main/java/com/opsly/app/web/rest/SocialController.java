@@ -23,10 +23,9 @@ public class SocialController {
 
     @GetMapping(value = "/")
     public ResponseEntity<SocialResponse> getTweetsNonBlocking() throws ExecutionException, InterruptedException {
-        // todo:: it should determine with webflux
-        log.info("!");
+        log.info(" REQUEST  :  --> ");
         SocialResponse socialResponse = socialService.loadSocialAggregation();
-        log.info("?");
+        log.info(" RESPONSE : <-- {}", socialResponse);
         return Optional.ofNullable(socialResponse)
                 .map(result -> new ResponseEntity<>(result, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
