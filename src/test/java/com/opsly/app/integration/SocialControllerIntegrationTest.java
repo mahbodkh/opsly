@@ -32,6 +32,14 @@ public class SocialControllerIntegrationTest extends AbstractIntegrationTest {
             .options()
             .port(8089)
             .usingFilesUnderClasspath("wiremock");
+    
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        wireMockRule.resetMappings();
+        wireMockRule.resetScenarios();
+        wireMockRule.resetRequests();
+    }
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(wireMockConfiguration);
