@@ -22,7 +22,7 @@ public class SocialController {
     private final SocialService socialService;
 
     @GetMapping(value = "/")
-    public ResponseEntity<SocialResponse> getTweetsNonBlocking() throws ExecutionException, InterruptedException {
+    public ResponseEntity<SocialResponse> loadCombineSocialService() throws ExecutionException, InterruptedException {
         log.info(" REQUEST  :  --> ");
         SocialResponse socialResponse = socialService.loadSocialAggregation();
         log.info(" RESPONSE :  <-- {}", socialResponse);
