@@ -16,7 +16,6 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ContextConfiguration(classes = IntegrationTestConfig.class)
 @AutoConfigureMockMvc
 public abstract class AbstractIntegrationTest implements WebMvcConfigurer {
 
