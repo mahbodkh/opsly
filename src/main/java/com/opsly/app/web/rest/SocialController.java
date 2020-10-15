@@ -23,9 +23,9 @@ public class SocialController {
 
     @GetMapping(value = "/")
     public ResponseEntity<SocialResponse> loadCombineSocialService() throws ExecutionException, InterruptedException {
-        log.info(" REQUEST  :  --> ");
+        log.info(" REQUEST  :  --> GET ");
         SocialResponse socialResponse = socialService.loadSocialAggregation();
-        log.info(" RESPONSE :  <-- {}", socialResponse);
+        log.info(" RESPONSE :  <-- {} ", socialResponse);
         return Optional.ofNullable(socialResponse)
                 .map(result -> new ResponseEntity<>(result, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
