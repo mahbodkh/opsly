@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @Service
-@Log4j2
+@Slf4j
 @AllArgsConstructor
 public class SocialService {
 
@@ -39,47 +39,45 @@ public class SocialService {
     private final InstagramDtoMapper instagramDtoMapper;
     private final FacebookDtoMapper facebookDtoMapper;
 
-    public SocialResponse loadSocialAggregation() throws ExecutionException, InterruptedException {
+   public SocialResponse loadSocialAggregation() {
 
         CompletableFuture<String> twitterCf = twitterProxy.loadTweet();
         CompletableFuture<String> facebookCf = facebookProxy.loadStatus();
         CompletableFuture<String> instagramCf = instagramProxy.loadPhotos();
 
-        List<CompletableFuture<String>> allFutures = Arrays.asList(twitterCf, facebookCf, instagramCf);
-
         // wait until all request will be obtained
-        CompletableFuture<List<String>> listCompletableFuture = CompletableFuture.allOf(twitterCf, facebookCf, instagramCf)
-                .thenApply(avoid -> allFutures  //start to collect them
-                        .stream()
-                        .map(CompletableFuture::join) //get List from feature. Here these cars has been obtained, therefore non blocking
-                        .collect(Collectors.toList())
-                );
-
-        final List<String> join = listCompletableFuture.get();
+        CompletableFuture.allOf(twitterCf, facebookCf, instagramCf).join();
         List<Twitter> twitters = new ArrayList<>();
         List<Facebook> facebooks = new ArrayList<>();
         List<Instagram> instagrams = new ArrayList<>();
 
-        for (String result : join) {
-            try {
-                if (twitters.size() == 0) {
-                    twitters =
-                            Arrays.asList(mapper.readValue(result, Twitter[].class));
-
-                } else if (facebooks.size() == 0) {
-                    facebooks =
-                            Arrays.asList(mapper.readValue(result, Facebook[].class));
-
-                } else if (instagrams.size() == 0) {
-                    instagrams =
-                            Arrays.asList(mapper.readValue(result, Instagram[].class));
-
-                }
-            } catch (IOException e) {
-                log.debug(" object binding result: {} --> exception: {} ", result, e.getMessage());
-            }
-
+        try {
+            String twitterResponse = twitterCf.get();
+            log.debug(" twitter before mapping  --> {} ", twitterResponse);
+            twitters = Arrays.asList(mapper.readValue(twitterResponse, Twitter[].class));
+            log.debug(" twitter result mapping  <-- {} ", twitters);
+        } catch (InterruptedException | ExecutionException | JsonProcessingException e) {
+            log.error(" twitter exception: {} --> exception: {} ", twitters, e.getMessage());
         }
+
+        try {
+            String facebookResponse = facebookCf.get();
+            log.debug(" facebook before mapping  --> {} ", facebookResponse);
+            facebooks = Arrays.asList(mapper.readValue(facebookResponse, Facebook[].class));
+            log.debug(" facebook result mapping  <-- {} ", facebooks);
+        } catch (InterruptedException | ExecutionException | JsonProcessingException e) {
+            log.error(" facebook exception: {} --> exception: {} ", facebooks, e.getMessage());
+        }
+
+        try {
+            String instagramResponse = instagramCf.get();
+            log.debug(" instagram before mapping  --> {} ", instagramResponse);
+            instagrams = Arrays.asList(mapper.readValue(instagramResponse, Instagram[].class));
+            log.debug(" instagram result mapping  <-- {} ", instagrams);
+        } catch (InterruptedException | ExecutionException | JsonProcessingException e) {
+            log.error(" instagram exception: {} --> exception: {} ", instagrams, e.getMessage());
+        }
+
         return SocialResponse.builder()
                 .twitterDtos(twitterDtoMapper.toDto(twitters))
                 .facebookDtos(facebookDtoMapper.toDto(facebooks))
