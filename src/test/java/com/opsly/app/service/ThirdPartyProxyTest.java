@@ -100,10 +100,10 @@ public class ThirdPartyProxyTest {
         assertThat(twitterResponse).isNotEmpty();
         assertThat(twitters.size()).isNotZero();
         assertThat(twitters.size()).isEqualTo(2);
-        assertThat(twitters.get(0).getTweet()).asString();
-        assertThat(twitters.get(0).getUsername()).asString();
-        assertThat(twitters.get(1).getTweet()).asString();
-        assertThat(twitters.get(1).getUsername()).asString();
+        assertThat(twitters.get(0).getTweet()).asString().isNotEmpty();
+        assertThat(twitters.get(0).getUsername()).asString().isNotEmpty();
+        assertThat(twitters.get(1).getTweet()).asString().isNotEmpty();
+        assertThat(twitters.get(1).getUsername()).asString().isNotEmpty();
     }
 
     @Test
@@ -128,10 +128,10 @@ public class ThirdPartyProxyTest {
             facebooks = Arrays.asList(mapper.readValue(facebookResponse, Facebook[].class));
 
             assertThat(facebooks.size()).isEqualTo(2);
-            assertThat(facebooks.get(0).getName()).asString();
-            assertThat(facebooks.get(0).getStatus()).asString();
-            assertThat(facebooks.get(1).getName()).asString();
-            assertThat(facebooks.get(1).getStatus()).asString();
+            assertThat(facebooks.get(0).getName()).asString().isNotEmpty();
+            assertThat(facebooks.get(0).getStatus()).asString().isNotEmpty();
+            assertThat(facebooks.get(1).getName()).asString().isNotEmpty();
+            assertThat(facebooks.get(1).getStatus()).asString().isNotEmpty();
         } catch (Exception exception) {
             String expectedMessage = "I am trapped in a social media factory send help";
             assertThat(exception.getMessage()).contains(expectedMessage);
