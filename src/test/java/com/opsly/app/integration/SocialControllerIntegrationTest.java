@@ -103,6 +103,14 @@ public class SocialControllerIntegrationTest extends AbstractIntegrationTest {
         //************************
 
         Assertions.assertThat(socialResponse).isNotNull();
+        try {
+            Assertions.assertThat(socialResponse.getTwitterDtos()).asList();
+            Assertions.assertThat(socialResponse.getFacebookDtos()).asList();
+        } catch (Exception e) {
+            Assertions.assertThat(socialResponse.getTwitterDtos()).isNull();
+            Assertions.assertThat(socialResponse.getFacebookDtos()).isNull();
+        }
+        Assertions.assertThat(socialResponse.getInstagramDtos()).isNull();
     }
 
 
