@@ -1,4 +1,4 @@
-package com.opsly.app.thirdparty.rest.instagram.model;
+package com.opsly.app.integration.rest.instagram.model;
 
 import lombok.Getter;
 import lombok.Setter;

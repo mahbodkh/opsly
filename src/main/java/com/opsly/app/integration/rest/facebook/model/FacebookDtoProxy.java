@@ -1,4 +1,4 @@
-package com.opsly.app.thirdparty.rest.facebook.model;
+package com.opsly.app.integration.rest.facebook.model;
 
 import lombok.Getter;
 import lombok.Setter;

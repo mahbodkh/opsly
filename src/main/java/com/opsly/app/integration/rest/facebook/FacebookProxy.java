@@ -1,6 +1,6 @@
-package com.opsly.app.thirdparty.rest.facebook;
+package com.opsly.app.integration.rest.facebook;
 
-import com.opsly.app.thirdparty.util.RestProvider;
+import com.opsly.app.integration.util.RestProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

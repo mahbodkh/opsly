@@ -1,4 +1,4 @@
-package com.opsly.app.thirdparty.rest.twitter.model;
+package com.opsly.app.integration.rest.twitter.model;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.opsly.app.thirdparty.util;
+package com.opsly.app.integration.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
