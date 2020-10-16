@@ -107,7 +107,7 @@ public class SocialControllerIntegrationTest extends AbstractIntegrationTest {
 
 
     private String getContentAsStringResponse(MvcResult mvcResult) throws UnsupportedEncodingException {
-        return mvcResult.getRequest().getContentAsString();
+        return mvcResult.getResponse().getContentAsString();
     }
 
 
