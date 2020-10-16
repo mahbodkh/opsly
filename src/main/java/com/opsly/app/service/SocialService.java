@@ -1,6 +1,8 @@
 package com.opsly.app.service;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opsly.app.domain.Facebook;
 import com.opsly.app.domain.Instagram;
 import com.opsly.app.domain.Twitter;
@@ -11,18 +13,15 @@ import com.opsly.app.web.dto.SocialResponse;
 import com.opsly.app.web.mapper.FacebookDtoMapper;
 import com.opsly.app.web.mapper.InstagramDtoMapper;
 import com.opsly.app.web.mapper.TwitterDtoMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -39,7 +38,7 @@ public class SocialService {
     private final InstagramDtoMapper instagramDtoMapper;
     private final FacebookDtoMapper facebookDtoMapper;
 
-   public SocialResponse loadSocialAggregation() {
+    public SocialResponse loadSocialAggregation() {
 
         CompletableFuture<String> twitterCf = twitterProxy.loadTweet();
         CompletableFuture<String> facebookCf = facebookProxy.loadStatus();
