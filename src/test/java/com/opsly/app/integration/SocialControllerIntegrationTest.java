@@ -7,8 +7,10 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.github.tomakehurst.wiremock.matching.EqualToPattern;
 import com.opsly.app.web.dto.SocialResponse;
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,15 +34,6 @@ public class SocialControllerIntegrationTest extends AbstractIntegrationTest {
             .options()
             .port(8089)
             .usingFilesUnderClasspath("wiremock");
-    
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        wireMockRule.resetMappings();
-        wireMockRule.resetScenarios();
-        wireMockRule.resetRequests();
-    }
-
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(wireMockConfiguration);
     @Spy
@@ -51,6 +44,14 @@ public class SocialControllerIntegrationTest extends AbstractIntegrationTest {
     private String facebookBaseUrl;
     @Value("${app.client.instagram.base-url}")
     private String instagramBaseUrl;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        wireMockRule.resetMappings();
+        wireMockRule.resetScenarios();
+        wireMockRule.resetRequests();
+    }
 
     @Test
     public void getSocialController_excepted_mock_thirdParty_TEST() throws Exception {
